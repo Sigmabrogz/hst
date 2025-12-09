@@ -24,6 +24,7 @@ import {
   VersionToggle,
   PayoutBucketDisplay,
   BuilderPotPanel,
+  ChangesInfoPanel,
 } from '../components';
 import { useVersion } from '../contexts/VersionContext';
 import { useActiveMarket, useDemoMarket } from '../lib/hooks/useMarket';
@@ -117,6 +118,11 @@ export function MarketPage() {
           <WalletConnect />
         </div>
       </nav>
+
+      {/* Changes Info Panel - Documentation at top */}
+      <div className={styles.infoPanelContainer}>
+        <ChangesInfoPanel />
+      </div>
 
       <div className={styles.mainLayout}>
         {/* Left Sidebar - Market Status */}

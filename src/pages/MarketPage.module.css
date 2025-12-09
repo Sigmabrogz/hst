@@ -176,6 +176,13 @@
   background: var(--accent-green);
 }
 
+/* Info Panel Container */
+.infoPanelContainer {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-dim);
+}
+
 /* Main Layout */
 .mainLayout {
   display: flex;

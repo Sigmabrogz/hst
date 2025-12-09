@@ -12,3 +12,6 @@ export { VersionToggle } from './VersionToggle';
 export { PayoutBucketDisplay } from './PayoutBucketDisplay';
 export { BuilderPotPanel } from './BuilderPotPanel';
 
+// Documentation
+export { ChangesInfoPanel } from './ChangesInfoPanel';
+
