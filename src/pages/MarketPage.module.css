@@ -196,11 +196,22 @@
   background: var(--bg-primary);
   border-right: 1px solid var(--border-default);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Fixed header section of sidebar for V2/V3 panels */
+.sidebarFixed {
+  flex-shrink: 0;
+  padding: var(--space-sm);
+  border-bottom: 1px solid var(--border-dim);
+  background: var(--bg-primary);
+}
+
+/* Scrollable content section of sidebar */
 .sidebarContent {
   width: 280px;
-  height: calc(100vh - 49px);
+  flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -208,14 +219,9 @@
   padding: var(--space-sm);
 }
 
-/* Sticky Version Panels (V2/V3) - always visible at top of sidebar */
+/* Version Panels (V2/V3) - in fixed header area */
 .stickyVersionPanel {
-  position: sticky;
-  top: var(--space-sm);
-  z-index: 10;
   background: var(--bg-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
 }
 
 /* Main Content */

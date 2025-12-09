@@ -136,30 +136,36 @@ export function MarketPage() {
           animate={{ width: sidebarOpen ? 280 : 0, opacity: sidebarOpen ? 1 : 0 }}
           transition={{ duration: 0.2 }}
         >
+          {/* Fixed Header for V2/V3 panels - always visible, never scrolls */}
+          {(isV2 || isV3) && (
+            <div className={styles.sidebarFixed}>
+              {/* V2: Time-Bucketed Payouts */}
+              {isV2 && (
+                <div className={styles.stickyVersionPanel}>
+                  <PayoutBucketDisplay
+                    currentPhase={marketData.timeRemaining.phase}
+                    timeRemaining={marketData.timeRemaining}
+                    marketDuration={24}
+                    userEntryBucket="EARLY"
+                  />
+                </div>
+              )}
+
+              {/* V3: Conviction Weight Display */}
+              {isV3 && (
+                <div className={styles.stickyVersionPanel}>
+                  <ConvictionWeightDisplay
+                    phase={marketData.timeRemaining.phase}
+                    percentRemaining={marketData.timeRemaining.percentRemaining}
+                    userStake={buyAmount}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Scrollable sidebar content */}
           <div className={styles.sidebarContent}>
-            {/* V2: Time-Bucketed Payouts - FIRST (Sticky at top) */}
-            {isV2 && (
-              <div className={styles.stickyVersionPanel}>
-                <PayoutBucketDisplay
-                  currentPhase={marketData.timeRemaining.phase}
-                  timeRemaining={marketData.timeRemaining}
-                  marketDuration={24}
-                  userEntryBucket="EARLY"
-                />
-              </div>
-            )}
-
-            {/* V3: Conviction Weight Display - FIRST (Sticky at top) */}
-            {isV3 && (
-              <div className={styles.stickyVersionPanel}>
-                <ConvictionWeightDisplay
-                  phase={marketData.timeRemaining.phase}
-                  percentRemaining={marketData.timeRemaining.percentRemaining}
-                  userStake={buyAmount}
-                />
-              </div>
-            )}
-
             {/* Market Status Panel */}
             <div className={styles.panel}>
               <div className={styles.panelHeader}>
