@@ -70,3 +70,18 @@
   color: var(--accent-orange);
 }
 
+.v2Indicator {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-cyan);
+  background: rgba(0, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 3px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+

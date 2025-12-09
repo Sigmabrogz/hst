@@ -3,7 +3,7 @@ import { useVersion } from '../contexts/VersionContext';
 import styles from './VersionToggle.module.css';
 
 export function VersionToggle() {
-  const { version, setVersion } = useVersion();
+  const { version, setVersion, isV2 } = useVersion();
 
   return (
     <div className={styles.container}>
@@ -24,17 +24,11 @@ export function VersionToggle() {
         </button>
       </div>
       
-      <div className={styles.description}>
-        {version === 'v1' ? (
-          <span>
-            <strong>V1:</strong> UX improvements only — $1/share display, late warnings, coordinator CTAs
-          </span>
-        ) : (
-          <span>
-            <strong>V2:</strong> Contract upgrades — time-bucketed payouts + builder pot split
-          </span>
-        )}
-      </div>
+      {isV2 && (
+        <div className={styles.v2Indicator}>
+          ⚡ V2 PREVIEW MODE
+        </div>
+      )}
     </div>
   );
 }

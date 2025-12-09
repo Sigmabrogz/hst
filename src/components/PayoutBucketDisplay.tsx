@@ -95,7 +95,7 @@ export function PayoutBucketDisplay({
       <div className={styles.currentStatus}>
         <div className={styles.statusItem}>
           <span className={styles.statusLabel}>Current Phase</span>
-          <span className={styles.statusValue} style={{ color: BUCKET_CONFIG[currentPhase].color }}>
+          <span className={styles.statusValue} style={{ color: BUCKET_CONFIG[currentPhase]?.color || 'var(--text-primary)' }}>
             {currentPhase}
           </span>
         </div>
