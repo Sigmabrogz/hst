@@ -73,11 +73,11 @@ export function CoordinatorCTAStrip({
         </div>
       </div>
 
-      {/* Explanation Banner */}
+      {/* Explanation Banner - Buy + Bet + Build framing */}
       <div className={styles.explainer}>
         <Trophy size={14} />
         <span>
-          Coordination markets reward action. Share, discuss, and help the outcome happen.
+          <strong>Buy + Bet + Build:</strong> Coordinators who help make the outcome real get rewarded more than passive bettors.
         </span>
       </div>
 

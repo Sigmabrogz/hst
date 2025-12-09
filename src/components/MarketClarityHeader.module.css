@@ -211,8 +211,22 @@
 }
 
 .explainerIcon {
-  color: var(--accent-cyan);
-  font-size: 0.8rem;
+  color: var(--accent-orange);
+  font-size: 0.9rem;
+}
+
+.explainer strong {
+  color: var(--accent-orange);
+  letter-spacing: 0.05em;
+}
+
+.lateWarning {
+  padding: var(--space-xs) var(--space-md);
+  background: rgba(255, 165, 2, 0.05);
+  border-top: 1px dashed var(--border-dim);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 /* Responsive */

@@ -131,10 +131,15 @@ export function MarketClarityHeader({ market, pool }: MarketClarityHeaderProps) 
         />
       </div>
 
-      {/* One-liner explanation */}
+      {/* Coordination Market Framing */}
       <div className={styles.explainer}>
-        <span className={styles.explainerIcon}>ℹ</span>
-        <span>This market rewards being right AND early. Late entries get smaller pot share.</span>
+        <span className={styles.explainerIcon}>⚡</span>
+        <span><strong>COORDINATION BET</strong> — This market rewards being right AND early. Buy + Bet + Build to win.</span>
+      </div>
+      
+      {/* Late entry warning */}
+      <div className={styles.lateWarning}>
+        <span>Late entries get less of the pot because you're joining after coordination momentum formed.</span>
       </div>
     </motion.div>
   );
