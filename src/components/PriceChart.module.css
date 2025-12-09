@@ -112,7 +112,7 @@
 /* Chart */
 .chartWrapper {
   position: relative;
-  height: 150px;
+  height: 250px;
   margin-bottom: var(--space-xs);
 }
 

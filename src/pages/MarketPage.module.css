@@ -218,6 +218,24 @@
   gap: var(--space-md);
 }
 
+/* Chart + Buy Row (Polymarket style) */
+.chartBuyRow {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.chartSection {
+  min-height: 300px;
+}
+
+.buySection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
 /* Content Grid */
 .contentGrid {
   display: grid;
@@ -439,6 +457,14 @@
 
 /* Responsive */
 @media (max-width: 1200px) {
+  .chartBuyRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .buySection {
+    order: -1;
+  }
+  
   .contentGrid {
     grid-template-columns: 1fr;
   }

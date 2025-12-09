@@ -244,11 +244,37 @@ export function MarketPage() {
             pool={marketData.pool}
           />
 
-          {/* V3: Price Chart (Polymarket-style) - shown below question */}
-          <PriceChart 
-            currentYesPrice={marketData.impliedOdds}
-            marketId={marketData.market.id}
-          />
+          {/* Polymarket-style: Chart + Buy Panel side by side */}
+          <div className={styles.chartBuyRow}>
+            {/* Left: Price Chart */}
+            <div className={styles.chartSection}>
+              <PriceChart 
+                currentYesPrice={marketData.impliedOdds}
+                marketId={marketData.market.id}
+              />
+            </div>
+
+            {/* Right: Buy Panel (Polymarket style) */}
+            <div className={styles.buySection}>
+              <BuyPanelEnhanced 
+                market={marketData.market}
+                pool={marketData.pool}
+              />
+              
+              {/* V3: Pre-Trade Payout Preview */}
+              {isV3 && (
+                <PreTradePayoutPreview
+                  side="YES"
+                  stake={buyAmount}
+                  phase={marketData.timeRemaining.phase}
+                  totalPot={Number(formatHST(marketData.market.pot))}
+                  totalYesConviction={Number(formatHST(marketData.market.yesSupply)) * 1.2}
+                  totalNoConviction={Number(formatHST(marketData.market.noSupply)) * 0.9}
+                  yesOdds={marketData.impliedOdds}
+                />
+              )}
+            </div>
+          </div>
 
           {/* V3: Two-Layer Price Display */}
           {isV3 && (
@@ -329,14 +355,8 @@ export function MarketPage() {
               </div>
             </div>
 
-            {/* Right Column - Buy Panel + Position */}
+            {/* Right Column - Position + V2/V3 extras */}
             <div className={styles.rightColumn}>
-              {/* Buy Panel */}
-              <BuyPanelEnhanced 
-                market={marketData.market}
-                pool={marketData.pool}
-              />
-
               {/* V2: Builder Pot Panel */}
               {isV2 && (
                 <BuilderPotPanel
@@ -345,19 +365,6 @@ export function MarketPage() {
                   builderPotShare={30}
                   userIsVerified={userActions.tweeted || userActions.built}
                   userActions={userActions}
-                />
-              )}
-
-              {/* V3: Pre-Trade Payout Preview */}
-              {isV3 && (
-                <PreTradePayoutPreview
-                  side="YES"
-                  stake={buyAmount}
-                  phase={marketData.timeRemaining.phase}
-                  totalPot={Number(formatHST(marketData.market.pot))}
-                  totalYesConviction={Number(formatHST(marketData.market.yesSupply)) * 1.2}
-                  totalNoConviction={Number(formatHST(marketData.market.noSupply)) * 0.9}
-                  yesOdds={marketData.impliedOdds}
                 />
               )}
 
