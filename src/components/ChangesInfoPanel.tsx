@@ -206,10 +206,100 @@ function claimLateRebate(uint256 marketId) {
   }
 ];
 
+const V3_CHANGES: ChangeItem[] = [
+  {
+    title: 'Time-Weighted Conviction Model',
+    problem: 'Traditional AMMs reward early buyers with better PRICE. Users expect this but your model is different.',
+    solution: 'Your model rewards early buyers with better PAYOUT SHARE, not price. conviction = stake × w(t)',
+    logic: 'conviction_i = stake_i × w(t_i) where w(t) = 1.5 (early), 1.0 (mid), 0.6 (late). Payout = pot × (your_conviction / total_winner_conviction)',
+    benefit: 'Kills last-minute farming. Late capital is less effective. Early risk-takers get rewarded, not snipers.',
+    code: `// Core V3 Formula
+w(t) = 1.5  if t in [0%, 33%]   // EARLY
+w(t) = 1.0  if t in [33%, 66%]  // MID  
+w(t) = 0.6  if t in [66%, 100%] // LATE
+
+conviction_i = stake_i * w(t_i)
+payout_i = pot * (conviction_i / total_conviction)`
+  },
+  {
+    title: 'Two-Layer Price Display',
+    problem: 'Users confused: "If I buy at 20% vs 80%, isnt that already conviction?"',
+    solution: 'Separate ODDS (price signal) from POT-SHARE (conviction signal). Show both layers explicitly.',
+    logic: 'Layer 1: Odds decide entry cost. Layer 2: Time weight affects payout share. AMMs only have Layer 1.',
+    benefit: 'Prevents the "why isnt odds enough" question. Users understand theyre buying pot weight claim.',
+    code: `// TwoLayerPriceDisplay.tsx
+// Layer 1: ODDS (what you pay)
+YES: 60c  NO: 40c
+
+// Layer 2: CONVICTION (what you get)
+conviction = stake * w(t)
+// Early 100 HST * 1.5 = 150 conviction
+// Late 100 HST * 0.6 = 60 conviction`
+  },
+  {
+    title: 'Pre-Trade Payout Preview',
+    problem: 'Users dont know their estimated pot share before buying',
+    solution: 'Show "If YES wins, your estimated pot share: ~X%" with conviction calculation before confirmation',
+    logic: 'potShare = (userConviction / totalWinnerConviction) * 100. Show comparison: early vs late entry.',
+    benefit: 'Reduces late-buyer regret massively. Users accept penalties when warned upfront.',
+    code: `// PreTradePayoutPreview.tsx
+const userConviction = stake * timeWeight;
+const potSharePercent = (userConviction / totalConviction) * 100;
+
+// Display: IF YES WINS
+// Your Conviction: 150 (100 * 1.5)
+// Est. Pot Share: ~2.5%
+// Est. Payout: ~250 HST (+150% ROI)`
+  },
+  {
+    title: 'Conviction Weight Display',
+    problem: 'Users dont understand how time affects their payout',
+    solution: 'Show current time weight multiplier (1.5x/1.0x/0.6x) with visual tier comparison',
+    logic: 'Display w(t) prominently. Show what same stake would get in each phase.',
+    benefit: 'Makes the time-weighted model legible in 5 seconds.',
+    code: `// ConvictionWeightDisplay.tsx
+const TIME_WEIGHTS = {
+  early: 1.5,  // Best pot-share
+  mid: 1.0,    // Standard
+  late: 0.6,   // Reduced (anti-sniper)
+};
+
+// 100 HST stake:
+// EARLY: 100 * 1.5 = 150 conviction
+// LATE:  100 * 0.6 = 60 conviction`
+  },
+  {
+    title: 'Polymarket-Style Price Chart',
+    problem: 'Users expect familiar prediction market UX with price charts',
+    solution: 'Add YES/NO price chart with live updates. Buy panel directly to the right of chart.',
+    logic: 'Chart shows implied probability over time. Familiar Polymarket layout.',
+    benefit: 'Familiar UX reduces learning curve. Users can read the market at a glance.',
+    code: `// PriceChart.tsx + Layout
+<div className={styles.chartBuyRow}>
+  <PriceChart />   {/* Left: YES/NO lines */}
+  <BuyPanel />     {/* Right: Buy YES/NO */}
+</div>`
+  },
+  {
+    title: 'Anti-Sniper Protection',
+    problem: 'Whales wait till last hour, dump big, distort outcome',
+    solution: 'Late capital (0.6x) is less effective. Timing manipulation becomes expensive.',
+    logic: 'Late whale with 1000 HST gets 600 conviction. Early user with 400 HST gets 600 conviction. Equal!',
+    benefit: 'Rewards genuine early conviction. Snipers cant farm this.',
+    code: `// Anti-sniper math:
+// Early: 1000 HST * 1.5 = 1500 conviction
+// Late:  1000 HST * 0.6 = 600 conviction
+
+// To match early whale:
+// Late needs: 1500 / 0.6 = 2500 HST
+// Thats 2.5x more capital for same share!`
+  }
+];
+
 export function ChangesInfoPanel() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'v1' | 'v2' | 'overview'>('overview');
-  const { isV2 } = useVersion();
+  const [activeTab, setActiveTab] = useState<'v1' | 'v2' | 'v3' | 'overview'>('overview');
+  const { isV2, isV3 } = useVersion();
 
   return (
     <div className={styles.container}>
@@ -222,6 +312,7 @@ export function ChangesInfoPanel() {
         <span>CHANGES & DOCUMENTATION</span>
         {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         {isV2 && <span className={styles.v2Badge}>V2 ACTIVE</span>}
+        {isV3 && <span className={styles.v3Badge}>V3 ACTIVE</span>}
       </button>
 
       <AnimatePresence>
@@ -247,14 +338,21 @@ export function ChangesInfoPanel() {
                 onClick={() => setActiveTab('v1')}
               >
                 <Zap size={14} />
-                V1 Changes (Live)
+                V1 (UX Layer)
               </button>
               <button 
                 className={`${styles.tab} ${activeTab === 'v2' ? styles.activeTab : ''}`}
                 onClick={() => setActiveTab('v2')}
               >
                 <Code size={14} />
-                V2 Changes (Proposed)
+                V2 (Payout Bands)
+              </button>
+              <button 
+                className={`${styles.tab} ${activeTab === 'v3' ? styles.activeTab : ''}`}
+                onClick={() => setActiveTab('v3')}
+              >
+                <TrendingUp size={14} />
+                V3 (Conviction)
               </button>
             </div>
 
@@ -263,6 +361,7 @@ export function ChangesInfoPanel() {
               {activeTab === 'overview' && <OverviewTab />}
               {activeTab === 'v1' && <ChangesTab changes={V1_CHANGES} version="v1" />}
               {activeTab === 'v2' && <ChangesTab changes={V2_CHANGES} version="v2" />}
+              {activeTab === 'v3' && <ChangesTab changes={V3_CHANGES} version="v3" />}
             </div>
           </motion.div>
         )}
@@ -315,8 +414,8 @@ function OverviewTab() {
           <div className={styles.solutionIcon} style={{ background: 'rgba(0, 255, 255, 0.1)' }}>
             <Code size={24} color="var(--accent-cyan)" />
           </div>
-          <h4>V2: Contract Upgrades (Proposed)</h4>
-          <p>Mechanism-level fixes for remaining issues.</p>
+          <h4>V2: Payout Bands (Proposed)</h4>
+          <p>Time-bucketed payouts for fairness.</p>
           <ul>
             <li>Time-bucketed payout bands</li>
             <li>Prediction + Builder pot split</li>
@@ -327,6 +426,25 @@ function OverviewTab() {
           <div className={styles.impactBadge}>
             <Shield size={12} />
             Solves fairness + free-rider
+          </div>
+        </div>
+
+        <div className={styles.solutionCard}>
+          <div className={styles.solutionIcon} style={{ background: 'rgba(255, 136, 0, 0.1)' }}>
+            <TrendingUp size={24} color="var(--accent-orange)" />
+          </div>
+          <h4>V3: Conviction Model</h4>
+          <p>Time-weighted conviction for anti-sniper.</p>
+          <ul>
+            <li>conviction = stake × w(t)</li>
+            <li>Two-layer display (odds vs weight)</li>
+            <li>Pre-trade payout preview</li>
+            <li>Polymarket-style chart</li>
+            <li>Anti-sniper protection</li>
+          </ul>
+          <div className={styles.impactBadge}>
+            <Clock size={12} />
+            Kills last-minute farming
           </div>
         </div>
       </div>
@@ -382,29 +500,40 @@ function OverviewTab() {
   );
 }
 
-function ChangesTab({ changes, version }: { changes: ChangeItem[]; version: 'v1' | 'v2' }) {
+function ChangesTab({ changes, version }: { changes: ChangeItem[]; version: 'v1' | 'v2' | 'v3' }) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const getHeader = () => {
+    switch (version) {
+      case 'v1':
+        return { icon: <Zap size={18} />, title: 'V1 Changes — UX Improvements (Live)' };
+      case 'v2':
+        return { icon: <Code size={18} />, title: 'V2 Changes — Payout Bands (Proposed)' };
+      case 'v3':
+        return { icon: <TrendingUp size={18} />, title: 'V3 Changes — Conviction Model' };
+    }
+  };
+
+  const getDescription = () => {
+    switch (version) {
+      case 'v1':
+        return 'Zero contract changes. Pure presentation layer fixes that can ship immediately.';
+      case 'v2':
+        return 'Time-bucketed payout bands + builder pot split. Requires contract deployment.';
+      case 'v3':
+        return 'Time-weighted conviction model: conviction = stake × w(t). Anti-sniper protection built-in.';
+    }
+  };
+
+  const header = getHeader();
 
   return (
     <div className={styles.changesList}>
       <div className={styles.changesHeader}>
         <h3>
-          {version === 'v1' ? (
-            <>
-              <Zap size={18} /> V1 Changes — UX Improvements (Live)
-            </>
-          ) : (
-            <>
-              <Code size={18} /> V2 Changes — Contract Upgrades (Proposed)
-            </>
-          )}
+          {header.icon} {header.title}
         </h3>
-        <p>
-          {version === 'v1' 
-            ? 'Zero contract changes. Pure presentation layer fixes that can ship immediately.'
-            : 'Mechanism-level changes that require contract deployment. Keep V1 markets alive, deploy V2 for new markets.'
-          }
-        </p>
+        <p>{getDescription()}</p>
       </div>
 
       {changes.map((change, index) => (

@@ -36,6 +36,16 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
+.v3Badge {
+  margin-left: auto;
+  background: var(--accent-orange);
+  color: var(--bg-dark);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
