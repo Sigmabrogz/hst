@@ -5,15 +5,11 @@ import {
   getMarket,
   getMarkets,
   getMarketCount,
-  getPool,
   quoteBuyYes,
   quoteBuyNo,
   calculateImpliedOdds,
   getTimeRemaining,
   getCrowdingLevel,
-  calculateEstimatedPayout,
-  calculatePotShare,
-  formatHST,
   parseHST,
 } from '../contracts/pamm';
 
@@ -170,7 +166,7 @@ export interface QuoteState {
 }
 
 export function useBuyQuote(
-  marketId: `0x${string}` | null,
+  marketId: bigint | null,
   side: 'YES' | 'NO',
   amount: string
 ) {

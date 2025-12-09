@@ -1,0 +1,259 @@
+.container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: 6px;
+  padding: var(--space-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
+.badge {
+  background: rgba(255, 165, 2, 0.1);
+  color: var(--accent-orange);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.explanation {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  line-height: 1.5;
+}
+
+.explanation strong {
+  color: var(--text-primary);
+}
+
+/* Pot Split Visualization */
+.potSplit {
+  margin-bottom: var(--space-md);
+}
+
+.potBar {
+  display: flex;
+  height: 32px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-darker);
+  margin-bottom: var(--space-sm);
+}
+
+.predictionBar {
+  background: linear-gradient(90deg, var(--accent-green), rgba(0, 255, 136, 0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--bg-dark);
+}
+
+.builderBar {
+  background: linear-gradient(90deg, var(--accent-cyan), rgba(0, 255, 255, 0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--bg-dark);
+}
+
+.potLabels {
+  display: flex;
+  justify-content: space-between;
+}
+
+.potLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.potDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.potInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.potName {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.potAmount {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* User Status */
+.userStatus {
+  background: var(--bg-darker);
+  border-radius: 4px;
+  padding: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.statusHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.verifiedBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-green);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.unverifiedBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.multiplierDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm);
+  background: rgba(255, 165, 2, 0.05);
+  border-radius: 4px;
+  margin-bottom: var(--space-sm);
+}
+
+.multiplierLabel {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.multiplierValue {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+}
+
+.multiplierNote {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.detailsToggle {
+  width: 100%;
+  padding: var(--space-xs);
+  background: transparent;
+  border: 1px dashed var(--border-dim);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.detailsToggle:hover {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+}
+
+.actionsList {
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  overflow: hidden;
+}
+
+.actionItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs);
+  background: var(--bg-card);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.actionItem.completed {
+  background: rgba(0, 255, 136, 0.05);
+}
+
+.actionItem.completed .actionLabel {
+  color: var(--accent-green);
+}
+
+.actionCheck {
+  color: var(--text-dim);
+}
+
+.checkIcon {
+  color: var(--accent-green);
+}
+
+.actionLabel {
+  flex: 1;
+}
+
+.actionMultiplier {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+/* What This Means */
+.whatThisMeans {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding: var(--space-sm);
+  background: rgba(255, 165, 2, 0.03);
+  border-left: 2px solid var(--accent-orange);
+  line-height: 1.5;
+}
+
+.whatThisMeans strong {
+  color: var(--accent-orange);
+}
+
+.whatThisMeans em {
+  color: var(--accent-cyan);
+  font-style: normal;
+}
+

@@ -22,9 +22,10 @@ export function UserPositionCard({
   yesSupply,
   noSupply,
   pot,
-  impliedOdds,
+  impliedOdds: _impliedOdds,
   isConnected,
 }: UserPositionCardProps) {
+  void _impliedOdds; // Reserved for future use
   // Calculate pot shares
   const yesPotShare = yesSupply > 0n 
     ? Number((yesBalance * 10000n) / yesSupply) / 100 

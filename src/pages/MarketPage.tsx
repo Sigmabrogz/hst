@@ -1,5 +1,6 @@
 // MarketPage - Main layout integrating all UX upgrade components
 // Layout: Dashboard with sidebar + terminal aesthetic
+// Now supports V1 (UX only) and V2 (contract upgrades) views
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -20,7 +21,11 @@ import {
   UserPositionCard,
   CoordinatorCTAStrip,
   WalletConnect,
+  VersionToggle,
+  PayoutBucketDisplay,
+  BuilderPotPanel,
 } from '../components';
+import { useVersion } from '../contexts/VersionContext';
 import { useActiveMarket, useDemoMarket } from '../lib/hooks/useMarket';
 import { formatHST, parseHST } from '../lib/contracts/pamm';
 import styles from './MarketPage.module.css';
@@ -28,6 +33,7 @@ import styles from './MarketPage.module.css';
 export function MarketPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [useLiveData, setUseLiveData] = useState(false); // Default to demo for now
+  const { isV2 } = useVersion();
   
   // Try live data first, fall back to demo
   const liveData = useActiveMarket();
@@ -46,6 +52,14 @@ export function MarketPage() {
     yesBalance: parseHST('1500'),
     noBalance: 0n,
     isConnected: true,
+  };
+
+  // Demo user actions for V2 builder pot
+  const userActions = {
+    tweeted: true,
+    referred: false,
+    shared: true,
+    built: false,
   };
 
   if (!marketData.market || !marketData.pool) {
@@ -73,6 +87,7 @@ export function MarketPage() {
         
         <div className={styles.navCenter}>
           <span className={styles.navLabel}>HST TERMINAL</span>
+          <VersionToggle />
           <button 
             className={styles.dataSourceBtn}
             onClick={() => setUseLiveData(!useLiveData)}
@@ -163,6 +178,16 @@ export function MarketPage() {
               crowdingRatio={marketData.crowding.crowdingRatio}
               description={marketData.crowding.description}
             />
+
+            {/* V2: Time-Bucketed Payouts */}
+            {isV2 && (
+              <PayoutBucketDisplay
+                currentPhase={marketData.timeRemaining.phase}
+                timeRemaining={marketData.timeRemaining.display}
+                marketDuration={24}
+                userEntryBucket="EARLY"
+              />
+            )}
 
             {/* Quick Links */}
             <div className={styles.panel}>
@@ -276,6 +301,17 @@ export function MarketPage() {
                 market={marketData.market}
                 pool={marketData.pool}
               />
+
+              {/* V2: Builder Pot Panel */}
+              {isV2 && (
+                <BuilderPotPanel
+                  totalPot={Number(formatHST(marketData.market.pot))}
+                  predictionPotShare={70}
+                  builderPotShare={30}
+                  userIsVerified={userActions.tweeted || userActions.built}
+                  userActions={userActions}
+                />
+              )}
 
               {/* User Position */}
               <UserPositionCard 

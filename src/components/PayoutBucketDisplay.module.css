@@ -1,0 +1,176 @@
+.container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: 6px;
+  padding: var(--space-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
+.badge {
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--accent-cyan);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.explanation {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  line-height: 1.5;
+  padding: var(--space-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+}
+
+.explanation strong {
+  color: var(--accent-orange);
+}
+
+.buckets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.bucket {
+  background: var(--bg-darker);
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  padding: var(--space-sm);
+  transition: all 0.2s ease;
+}
+
+.bucket.active {
+  border-color: var(--bucket-color);
+  box-shadow: 0 0 20px rgba(255, 165, 2, 0.1);
+}
+
+.bucket.userBucket {
+  background: rgba(255, 165, 2, 0.05);
+}
+
+.bucketHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.bucketName {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--bucket-color);
+  letter-spacing: 0.05em;
+}
+
+.nowBadge {
+  background: var(--accent-orange);
+  color: var(--bg-dark);
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.youBadge {
+  background: var(--accent-cyan);
+  color: var(--bg-dark);
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 0.55rem;
+  font-weight: 700;
+}
+
+.potShare {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-sm) 0;
+}
+
+.potValue {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--bucket-color);
+}
+
+.potLabel {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeRange {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-xs);
+}
+
+.bucketDesc {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.currentStatus {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-sm);
+  background: var(--bg-darker);
+  border-radius: 4px;
+  margin-bottom: var(--space-sm);
+}
+
+.statusItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.statusLabel {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statusValue {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.v2Note {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding: var(--space-sm);
+  background: rgba(0, 255, 255, 0.03);
+  border-left: 2px solid var(--accent-cyan);
+  line-height: 1.5;
+}
+
+.v2Note strong {
+  color: var(--accent-cyan);
+}
+

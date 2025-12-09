@@ -3,7 +3,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Info, TrendingUp, TrendingDown, Zap, AlertTriangle } from 'lucide-react';
+import { ArrowRight, Info, TrendingDown, Zap, AlertTriangle } from 'lucide-react';
 import type { Market, Pool, BuyQuote } from '../lib/contracts/pamm';
 import { formatHST, parseHST, calculateImpliedOdds, calculateEstimatedPayout } from '../lib/contracts/pamm';
 import styles from './BuyPanelEnhanced.module.css';

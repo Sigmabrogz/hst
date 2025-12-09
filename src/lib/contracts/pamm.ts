@@ -20,11 +20,9 @@ export const monadTestnet = {
   },
 } as const;
 
-// Alternative RPC endpoints to try
-const RPC_ENDPOINTS = [
-  'https://testnet-rpc.monad.xyz',
-  'https://monad-testnet.rpc.caldera.xyz/http',
-];
+// Alternative RPC endpoints available for fallback:
+// - https://testnet-rpc.monad.xyz
+// - https://monad-testnet.rpc.caldera.xyz/http
 
 // Contract Addresses (from https://docs.hyperstitions.com/)
 export const CONTRACTS = {
@@ -439,14 +437,14 @@ export async function getMarket(marketId: bigint): Promise<Market | null> {
       abi: PAMM_ABI,
       functionName: 'getMarket',
       args: [marketId],
-    }) as any[];
+    });
     
     // Destructure based on contract's getMarket return order
     const [
       yesSupply, noSupply, resolver, resolved, outcome,
-      pot, payoutPerShare, desc, closeTs, canClose,
+      pot, _payoutPerShare, desc, closeTs, _canClose,
       rYes, rNo, pYes_num, pYes_den
-    ] = result;
+    ] = result as readonly [bigint, bigint, `0x${string}`, boolean, boolean, bigint, bigint, string, bigint, boolean, bigint, bigint, bigint, bigint];
     
     return {
       id: marketId.toString(),
@@ -478,13 +476,13 @@ export async function getMarkets(start: number, count: number): Promise<Market[]
       abi: PAMM_ABI,
       functionName: 'getMarkets',
       args: [BigInt(start), BigInt(count)],
-    }) as any[];
+    });
     
     const [
       marketIds, yesSupplies, noSupplies, resolvers,
-      resolved, outcome, pot, payoutPerShare, descs,
-      closes, canCloses, rYesArr, rNoArr, pYesNumArr, pYesDenArr, next
-    ] = result;
+      resolved, outcome, pot, _payoutPerShare, descs,
+      closes, _canCloses, rYesArr, rNoArr, pYesNumArr, pYesDenArr, _next
+    ] = result as readonly [readonly bigint[], readonly bigint[], readonly bigint[], readonly `0x${string}`[], readonly boolean[], readonly boolean[], readonly bigint[], readonly bigint[], readonly string[], readonly bigint[], readonly boolean[], readonly bigint[], readonly bigint[], readonly bigint[], readonly bigint[], bigint];
     
     const markets: Market[] = [];
     for (let i = 0; i < marketIds.length; i++) {
@@ -521,7 +519,7 @@ export async function getPool(marketId: bigint): Promise<Pool | null> {
       args: [marketId],
     }) as [bigint, bigint, bigint, number, bigint, bigint];
     
-    const [poolId, rYes, rNo, tsLast, kLast, lpSupply] = result;
+    const [_poolId, rYes, rNo, _tsLast, kLast, _lpSupply] = result;
     
     return {
       yesReserve: rYes,
@@ -546,7 +544,7 @@ export async function quoteBuyYes(
       args: [marketId, sharesOut],
     }) as [bigint, bigint, bigint, bigint, bigint, bigint];
     
-    const [oppIn, sttInFair, p0_num, p0_den, p1_num, p1_den] = result;
+    const [oppIn, sttInFair, _p0_num, _p0_den, _p1_num, _p1_den] = result;
     const totalCost = oppIn + sttInFair;
     const effectivePrice = sharesOut > 0n 
       ? Number(formatHST(totalCost)) / Number(formatHST(sharesOut))
@@ -577,7 +575,7 @@ export async function quoteBuyNo(
       args: [marketId, sharesOut],
     }) as [bigint, bigint, bigint, bigint, bigint, bigint];
     
-    const [oppIn, sttInFair, p0_num, p0_den, p1_num, p1_den] = result;
+    const [oppIn, sttInFair, _p0_num, _p0_den, _p1_num, _p1_den] = result;
     const totalCost = oppIn + sttInFair;
     const effectivePrice = sharesOut > 0n 
       ? Number(formatHST(totalCost)) / Number(formatHST(sharesOut))

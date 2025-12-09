@@ -7,3 +7,8 @@ export { UserPositionCard } from './UserPositionCard';
 export { CoordinatorCTAStrip } from './CoordinatorCTAStrip';
 export { WalletConnect } from './WalletConnect';
 
+// V2 Components
+export { VersionToggle } from './VersionToggle';
+export { PayoutBucketDisplay } from './PayoutBucketDisplay';
+export { BuilderPotPanel } from './BuilderPotPanel';
+
