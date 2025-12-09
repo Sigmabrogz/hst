@@ -1,0 +1,274 @@
+.container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: 6px;
+  padding: var(--space-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
+.badge {
+  margin-left: auto;
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--accent-cyan);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.explanation {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: rgba(255, 165, 2, 0.05);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  line-height: 1.5;
+}
+
+.explanation strong {
+  color: var(--accent-orange);
+}
+
+/* Layers */
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.layer {
+  background: var(--bg-darker);
+  border-radius: 6px;
+  padding: var(--space-md);
+  border: 1px solid var(--border-dim);
+}
+
+.layerHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-green);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-xs);
+}
+
+.layerDescription {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: var(--space-md);
+}
+
+/* Odds Display */
+.oddsDisplay {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.oddsCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm);
+  background: var(--bg-card);
+  border-radius: 4px;
+  border: 1px solid var(--border-dim);
+}
+
+.oddsCard[data-side="yes"] {
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.oddsCard[data-side="no"] {
+  border-color: rgba(255, 100, 100, 0.3);
+}
+
+.oddsLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.oddsValue {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.oddsCard[data-side="yes"] .oddsValue { color: var(--accent-green); }
+.oddsCard[data-side="no"] .oddsValue { color: var(--accent-red); }
+
+.oddsSubtext {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+.oddsDivider {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.layerNote {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Layer Arrow */
+.layerArrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--accent-orange);
+}
+
+.layerArrow span {
+  font-size: 0.65rem;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Conviction Display */
+.convictionDisplay {
+  margin-bottom: var(--space-sm);
+}
+
+.convictionFormula {
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.convictionFormula code {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent-green);
+  background: rgba(0, 255, 136, 0.1);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 4px;
+}
+
+.convictionCalc {
+  background: var(--bg-card);
+  border-radius: 4px;
+  padding: var(--space-sm);
+}
+
+.calcRow {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-xs) 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-bottom: 1px dashed var(--border-dim);
+}
+
+.calcRow:last-child {
+  border-bottom: none;
+}
+
+.calcResult {
+  font-weight: 600;
+  color: var(--accent-orange);
+}
+
+.calcResult span:last-child {
+  font-size: 1rem;
+}
+
+.weightHighlight {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.weightHighlight[data-phase="early"] { color: var(--accent-green); }
+.weightHighlight[data-phase="mid"] { color: var(--accent-orange); }
+.weightHighlight[data-phase="late"] { color: var(--accent-red); }
+
+/* Difference */
+.difference {
+  background: linear-gradient(135deg, rgba(255, 165, 2, 0.05) 0%, rgba(0, 255, 255, 0.05) 100%);
+  border-radius: 4px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.differenceTitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.differenceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.differenceItem {
+  text-align: center;
+}
+
+.differenceLabel {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  margin-bottom: var(--space-xs);
+}
+
+.differenceValue {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+.differenceValue em {
+  color: var(--accent-cyan);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* Tagline */
+.tagline {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-orange);
+  padding: var(--space-sm);
+  background: var(--bg-darker);
+  border-radius: 4px;
+  font-style: italic;
+}
+

@@ -80,6 +80,26 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
+.v3Indicator {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-orange);
+  background: rgba(255, 165, 2, 0.1);
+  padding: 2px 8px;
+  border-radius: 3px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.activeV3 {
+  background: linear-gradient(135deg, var(--accent-orange), #ff8c00);
+  color: var(--bg-dark);
+}
+
+.activeV3 .sublabel {
+  color: var(--bg-dark);
+  opacity: 0.8;
+}
+
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }

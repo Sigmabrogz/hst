@@ -1,6 +1,6 @@
 // MarketPage - Main layout integrating all UX upgrade components
 // Layout: Dashboard with sidebar + terminal aesthetic
-// Now supports V1 (UX only) and V2 (contract upgrades) views
+// Now supports V1 (UX only), V2 (contract upgrades), and V3 (conviction model) views
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -25,6 +25,10 @@ import {
   PayoutBucketDisplay,
   BuilderPotPanel,
   ChangesInfoPanel,
+  PriceChart,
+  ConvictionWeightDisplay,
+  TwoLayerPriceDisplay,
+  PreTradePayoutPreview,
 } from '../components';
 import { useVersion } from '../contexts/VersionContext';
 import { useActiveMarket, useDemoMarket } from '../lib/hooks/useMarket';
@@ -34,7 +38,8 @@ import styles from './MarketPage.module.css';
 export function MarketPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [useLiveData, setUseLiveData] = useState(false); // Default to demo for now
-  const { isV2 } = useVersion();
+  const { isV2, isV3 } = useVersion();
+  const [buyAmount] = useState(100); // For payout preview
   
   // Try live data first, fall back to demo
   const liveData = useActiveMarket();
@@ -195,6 +200,15 @@ export function MarketPage() {
               />
             )}
 
+            {/* V3: Conviction Weight Display */}
+            {isV3 && (
+              <ConvictionWeightDisplay
+                phase={marketData.timeRemaining.phase}
+                percentRemaining={marketData.timeRemaining.percentRemaining}
+                userStake={buyAmount}
+              />
+            )}
+
             {/* Quick Links */}
             <div className={styles.panel}>
               <div className={styles.panelHeader}>
@@ -229,6 +243,21 @@ export function MarketPage() {
             market={marketData.market}
             pool={marketData.pool}
           />
+
+          {/* V3: Price Chart (Polymarket-style) - shown below question */}
+          <PriceChart 
+            currentYesPrice={marketData.impliedOdds}
+            marketId={marketData.market.id}
+          />
+
+          {/* V3: Two-Layer Price Display */}
+          {isV3 && (
+            <TwoLayerPriceDisplay
+              yesOdds={marketData.impliedOdds}
+              phase={marketData.timeRemaining.phase}
+              userStake={buyAmount}
+            />
+          )}
 
           {/* Content Grid */}
           <div className={styles.contentGrid}>
@@ -316,6 +345,19 @@ export function MarketPage() {
                   builderPotShare={30}
                   userIsVerified={userActions.tweeted || userActions.built}
                   userActions={userActions}
+                />
+              )}
+
+              {/* V3: Pre-Trade Payout Preview */}
+              {isV3 && (
+                <PreTradePayoutPreview
+                  side="YES"
+                  stake={buyAmount}
+                  phase={marketData.timeRemaining.phase}
+                  totalPot={Number(formatHST(marketData.market.pot))}
+                  totalYesConviction={Number(formatHST(marketData.market.yesSupply)) * 1.2}
+                  totalNoConviction={Number(formatHST(marketData.market.noSupply)) * 0.9}
+                  yesOdds={marketData.impliedOdds}
                 />
               )}
 

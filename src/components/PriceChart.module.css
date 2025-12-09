@@ -1,0 +1,184 @@
+.container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: 6px;
+  padding: var(--space-md);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.viewToggle {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-darker);
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.viewBtn {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.viewBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.activeYes {
+  background: rgba(0, 255, 136, 0.2);
+  color: var(--accent-green);
+}
+
+.activeNo {
+  background: rgba(255, 100, 100, 0.2);
+  color: var(--accent-red);
+}
+
+.activeBoth {
+  background: rgba(255, 165, 2, 0.2);
+  color: var(--accent-orange);
+}
+
+/* Price Display */
+.priceDisplay {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.priceCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm);
+  background: var(--bg-darker);
+  border-radius: 4px;
+}
+
+.priceLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.priceValue {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.priceChange {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.positive {
+  color: var(--accent-green);
+}
+
+.negative {
+  color: var(--accent-red);
+}
+
+/* Chart */
+.chartWrapper {
+  position: relative;
+  height: 150px;
+  margin-bottom: var(--space-xs);
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-darker);
+  border-radius: 4px;
+}
+
+.yAxis {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+/* Time Labels */
+.timeLabels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  margin-bottom: var(--space-sm);
+}
+
+.timeLabels span {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-dim);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--border-dim);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legendNote {
+  margin-left: auto;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
