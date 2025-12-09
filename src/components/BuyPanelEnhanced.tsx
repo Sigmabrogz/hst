@@ -3,7 +3,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Info, TrendingUp, TrendingDown, Zap } from 'lucide-react';
+import { ArrowRight, Info, TrendingUp, TrendingDown, Zap, AlertTriangle } from 'lucide-react';
 import type { Market, Pool, BuyQuote } from '../lib/contracts/pamm';
 import { formatHST, parseHST, calculateImpliedOdds, calculateEstimatedPayout } from '../lib/contracts/pamm';
 import styles from './BuyPanelEnhanced.module.css';
@@ -18,8 +18,16 @@ export function BuyPanelEnhanced({ market, pool, onBuy }: BuyPanelEnhancedProps)
   const [side, setSide] = useState<'YES' | 'NO'>('YES');
   const [amount, setAmount] = useState('100');
   const [inputMode, setInputMode] = useState<'shares' | 'cost'>('shares');
+  const [isProView, setIsProView] = useState(false);
 
   const impliedOdds = calculateImpliedOdds(pool.yesReserve, pool.noReserve);
+  
+  // Calculate time remaining for late-entry cap
+  const now = BigInt(Math.floor(Date.now() / 1000));
+  const timeLeft = market.closeTime > now ? Number(market.closeTime - now) : 0;
+  const hoursLeft = timeLeft / 3600;
+  const isLateEntry = hoursLeft < 2; // Last 2 hours
+  const maxOrderSize = isLateEntry ? 500 : 10000; // Cap at 500 in last 2 hours
   
   // Simulated quote (in real app, use useBuyQuote hook)
   const quote = useMemo((): BuyQuote | null => {
@@ -171,9 +179,61 @@ export function BuyPanelEnhanced({ market, pool, onBuy }: BuyPanelEnhancedProps)
         </div>
       </div>
 
-      {/* Cost Breakdown */}
+      {/* Late Entry Warning */}
+      {isLateEntry && (
+        <div className={styles.lateEntryWarning}>
+          <AlertTriangle size={12} />
+          <span>Late entry: Max order {maxOrderSize} shares. Pot share dilution risk.</span>
+        </div>
+      )}
+
+      {/* Simple/Pro Toggle */}
+      <div className={styles.viewToggle}>
+        <button
+          className={`${styles.viewBtn} ${!isProView ? styles.active : ''}`}
+          onClick={() => setIsProView(false)}
+        >
+          SIMPLE
+        </button>
+        <button
+          className={`${styles.viewBtn} ${isProView ? styles.active : ''}`}
+          onClick={() => setIsProView(true)}
+        >
+          PRO
+        </button>
+      </div>
+
+      {/* Simple View - Just effective price */}
       <AnimatePresence mode="wait">
-        {quote && (
+        {quote && !isProView && (
+          <motion.div
+            className={styles.simpleView}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className={styles.simpleRow}>
+              <span>You pay</span>
+              <span className={styles.simpleValue}>
+                {Number(formatHST(quote.totalCost)).toFixed(2)} HST
+              </span>
+            </div>
+            <div className={styles.simpleRow}>
+              <span>You get</span>
+              <span className={styles.simpleValue}>
+                {amount} {side} shares @ ${quote.effectivePrice.toFixed(2)}
+              </span>
+            </div>
+            <div className={styles.simpleHint}>
+              You're paying market odds + contributing to winner pot
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Cost Breakdown - Pro View Only */}
+      <AnimatePresence mode="wait">
+        {quote && isProView && (
           <motion.div
             className={styles.breakdown}
             initial={{ opacity: 0, height: 0 }}

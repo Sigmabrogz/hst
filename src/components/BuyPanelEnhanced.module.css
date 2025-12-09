@@ -223,6 +223,84 @@
   color: var(--accent-orange);
 }
 
+/* Late Entry Warning */
+.lateEntryWarning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin: 0 var(--space-md) var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid var(--color-sell);
+  font-size: 0.7rem;
+  color: var(--color-sell);
+}
+
+.lateEntryWarning svg {
+  flex-shrink: 0;
+}
+
+/* View Toggle */
+.viewToggle {
+  display: flex;
+  margin: 0 var(--space-md) var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-dim);
+}
+
+.viewBtn {
+  flex: 1;
+  padding: var(--space-xs);
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.viewBtn.active {
+  background: var(--accent-orange);
+  color: var(--bg-primary);
+}
+
+/* Simple View */
+.simpleView {
+  margin: 0 var(--space-md) var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-dim);
+}
+
+.simpleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs) 0;
+  font-size: 0.85rem;
+}
+
+.simpleRow span:first-child {
+  color: var(--text-secondary);
+}
+
+.simpleValue {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.simpleHint {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--border-dim);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 /* Breakdown */
 .breakdown {
   margin: 0 var(--space-md) var(--space-md);
