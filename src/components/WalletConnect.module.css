@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.connectBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-orange);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-orange);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.connectBtn:hover:not(:disabled) {
+  background: var(--accent-orange);
+  color: var(--bg-primary);
+}
+
+.connectBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.switchBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  background: rgba(255, 165, 2, 0.1);
+  border: 1px solid var(--color-warning);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-warning);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.switchBtn:hover {
+  background: var(--color-warning);
+  color: var(--bg-primary);
+}
+
+.connected {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.networkDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+}
+
+.warningDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-warning);
+  box-shadow: 0 0 8px var(--color-warning);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.offlineDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.network {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-green);
+}
+
+.address {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.disconnectBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  border: 1px solid var(--border-dim);
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.disconnectBtn:hover {
+  border-color: var(--color-sell);
+  color: var(--color-sell);
+}
+

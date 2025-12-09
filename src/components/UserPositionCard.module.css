@@ -1,0 +1,231 @@
+.container {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border-dim);
+  background: var(--bg-secondary);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.header svg {
+  color: var(--accent-orange);
+}
+
+.headerBadge {
+  margin-left: auto;
+  padding: 2px 6px;
+  background: var(--accent-green-dim);
+  border: 1px solid var(--accent-green);
+  color: var(--accent-green);
+  font-size: 0.6rem;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-lg);
+  gap: var(--space-md);
+}
+
+.emptyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-default);
+  color: var(--text-dim);
+}
+
+.emptyText {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.emptyHint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.connectBtn {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  background: transparent;
+  border: 1px solid var(--accent-orange);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-orange);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.connectBtn:hover {
+  background: var(--accent-orange);
+  color: var(--bg-primary);
+}
+
+/* Positions Grid */
+.positionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+
+.positionCard {
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-dim);
+  transition: all 0.2s ease;
+}
+
+.positionCard.active {
+  border-color: var(--pos-color);
+  background: color-mix(in srgb, var(--pos-color) 5%, var(--bg-secondary));
+}
+
+.positionCard.inactive {
+  opacity: 0.5;
+}
+
+.positionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.positionSide {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pos-color);
+}
+
+.positionBadge {
+  font-size: 0.55rem;
+  padding: 1px 4px;
+  background: var(--pos-color);
+  color: var(--bg-primary);
+}
+
+.positionValue {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.valueNumber {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.valueLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.positionMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--border-dim);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.metaRow svg {
+  color: var(--pos-color);
+}
+
+/* Payout Summary */
+.payoutSummary {
+  margin: 0 var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-dim);
+}
+
+.summaryHeader {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.scenarioRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs) 0;
+}
+
+.scenarioLabel {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.scenarioValue {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quick Actions */
+.quickActions {
+  display: flex;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+}
+
+.actionBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.actionBtn:hover {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+}
+

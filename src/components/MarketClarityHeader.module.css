@@ -1,0 +1,234 @@
+.container {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-orange-dim), transparent);
+}
+
+.terminalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border-dim);
+  background: var(--bg-secondary);
+}
+
+.terminalLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-orange);
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px currentColor; }
+  50% { opacity: 0.6; box-shadow: 0 0 8px currentColor; }
+}
+
+.questionSection {
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.question {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* $1/Share Price Display - Polymarket Style */
+.priceDisplay {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.priceCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-primary);
+  border: 2px solid var(--card-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.priceCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-color);
+}
+
+.priceCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--card-color);
+  opacity: 0.05;
+}
+
+.priceLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--card-color);
+  position: relative;
+  z-index: 1;
+}
+
+.priceValue {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--card-color);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 30px color-mix(in srgb, var(--card-color) 50%, transparent);
+}
+
+.priceSubtext {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+}
+
+.metricsStrip {
+  display: flex;
+  align-items: stretch;
+  padding: var(--space-md) var(--space-lg);
+  gap: var(--space-lg);
+  border-bottom: 1px solid var(--border-dim);
+  overflow-x: auto;
+}
+
+.metricBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: fit-content;
+}
+
+.metricLabel {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.metricValue {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.divider {
+  width: 1px;
+  background: var(--border-dim);
+  align-self: stretch;
+}
+
+.timeDisplay {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.phaseIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 2px 8px;
+  border: 1px solid;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.progressContainer {
+  height: 2px;
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+.progressBar {
+  height: 100%;
+  transition: width 1s linear;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.explainer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-secondary);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.explainerIcon {
+  color: var(--accent-cyan);
+  font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .metricsStrip {
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+  
+  .divider {
+    display: none;
+  }
+  
+  .metricBlock {
+    flex: 1;
+    min-width: 80px;
+  }
+}
+
