@@ -1,16 +1,24 @@
-import React from 'react';
 import { Clock, Zap, Timer, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './PayoutBucketDisplay.module.css';
 
+type Phase = 'early' | 'mid' | 'late' | 'closed';
+type BucketKey = 'EARLY' | 'MID' | 'LATE';
+
 interface PayoutBucketDisplayProps {
-  currentPhase: 'EARLY' | 'MID' | 'LATE';
-  timeRemaining: string;
+  currentPhase: Phase;
+  timeRemaining: { hours: number; minutes: number; seconds: number };
   marketDuration: number; // total hours
-  userEntryBucket?: 'EARLY' | 'MID' | 'LATE' | null;
+  userEntryBucket?: BucketKey | null;
 }
 
-const BUCKET_CONFIG = {
+const BUCKET_CONFIG: Record<BucketKey, {
+  potShare: number;
+  timeRange: string;
+  color: string;
+  icon: typeof Zap;
+  description: string;
+}> = {
   EARLY: {
     potShare: 50,
     timeRange: '0-33%',
@@ -34,11 +42,20 @@ const BUCKET_CONFIG = {
   }
 };
 
+// Convert lowercase phase to uppercase bucket key
+function phaseToKey(phase: Phase): BucketKey {
+  if (phase === 'early') return 'EARLY';
+  if (phase === 'mid') return 'MID';
+  return 'LATE'; // late or closed
+}
+
 export function PayoutBucketDisplay({ 
   currentPhase, 
   timeRemaining,
   userEntryBucket 
 }: PayoutBucketDisplayProps) {
+  const currentBucket = phaseToKey(currentPhase);
+  const timeDisplay = `${timeRemaining.hours}h ${timeRemaining.minutes}m`;
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -56,13 +73,13 @@ export function PayoutBucketDisplay({
         {(['EARLY', 'MID', 'LATE'] as const).map((bucket) => {
           const config = BUCKET_CONFIG[bucket];
           const Icon = config.icon;
-          const isCurrentPhase = bucket === currentPhase;
+          const isCurrentBucket = bucket === currentBucket;
           const isUserBucket = bucket === userEntryBucket;
 
           return (
             <motion.div
               key={bucket}
-              className={`${styles.bucket} ${isCurrentPhase ? styles.active : ''} ${isUserBucket ? styles.userBucket : ''}`}
+              className={`${styles.bucket} ${isCurrentBucket ? styles.active : ''} ${isUserBucket ? styles.userBucket : ''}`}
               style={{ '--bucket-color': config.color } as React.CSSProperties}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -71,7 +88,7 @@ export function PayoutBucketDisplay({
               <div className={styles.bucketHeader}>
                 <Icon size={14} style={{ color: config.color }} />
                 <span className={styles.bucketName}>{bucket}</span>
-                {isCurrentPhase && <span className={styles.nowBadge}>NOW</span>}
+                {isCurrentBucket && <span className={styles.nowBadge}>NOW</span>}
                 {isUserBucket && <span className={styles.youBadge}>YOU</span>}
               </div>
 
@@ -95,13 +112,13 @@ export function PayoutBucketDisplay({
       <div className={styles.currentStatus}>
         <div className={styles.statusItem}>
           <span className={styles.statusLabel}>Current Phase</span>
-          <span className={styles.statusValue} style={{ color: BUCKET_CONFIG[currentPhase]?.color || 'var(--text-primary)' }}>
-            {currentPhase}
+          <span className={styles.statusValue} style={{ color: BUCKET_CONFIG[currentBucket]?.color || 'var(--text-primary)' }}>
+            {currentBucket}
           </span>
         </div>
         <div className={styles.statusItem}>
           <span className={styles.statusLabel}>Time Left</span>
-          <span className={styles.statusValue}>{timeRemaining}</span>
+          <span className={styles.statusValue}>{timeDisplay}</span>
         </div>
         <div className={styles.statusItem}>
           <span className={styles.statusLabel}>Your Bucket</span>

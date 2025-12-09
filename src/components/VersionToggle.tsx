@@ -1,4 +1,3 @@
-import React from 'react';
 import { useVersion } from '../contexts/VersionContext';
 import styles from './VersionToggle.module.css';
 

@@ -183,7 +183,7 @@ export function MarketPage() {
             {isV2 && (
               <PayoutBucketDisplay
                 currentPhase={marketData.timeRemaining.phase}
-                timeRemaining={marketData.timeRemaining.display}
+                timeRemaining={marketData.timeRemaining}
                 marketDuration={24}
                 userEntryBucket="EARLY"
               />

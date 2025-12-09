@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Trophy, CheckCircle, Circle, Twitter, Users, Link2, Hammer, Gift } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './BuilderPotPanel.module.css';
@@ -34,9 +34,6 @@ export function BuilderPotPanel({
 
   const predictionPotAmount = (totalPot * predictionPotShare) / 100;
   const builderPotAmount = (totalPot * builderPotShare) / 100;
-
-  const completedActions = Object.values(userActions).filter(Boolean).length;
-  const totalActions = Object.keys(userActions).length;
 
   // Calculate user's multiplier based on actions
   const calculateMultiplier = () => {
