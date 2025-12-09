@@ -137,6 +137,29 @@ export function MarketPage() {
           transition={{ duration: 0.2 }}
         >
           <div className={styles.sidebarContent}>
+            {/* V2: Time-Bucketed Payouts - FIRST (Sticky at top) */}
+            {isV2 && (
+              <div className={styles.stickyVersionPanel}>
+                <PayoutBucketDisplay
+                  currentPhase={marketData.timeRemaining.phase}
+                  timeRemaining={marketData.timeRemaining}
+                  marketDuration={24}
+                  userEntryBucket="EARLY"
+                />
+              </div>
+            )}
+
+            {/* V3: Conviction Weight Display - FIRST (Sticky at top) */}
+            {isV3 && (
+              <div className={styles.stickyVersionPanel}>
+                <ConvictionWeightDisplay
+                  phase={marketData.timeRemaining.phase}
+                  percentRemaining={marketData.timeRemaining.percentRemaining}
+                  userStake={buyAmount}
+                />
+              </div>
+            )}
+
             {/* Market Status Panel */}
             <div className={styles.panel}>
               <div className={styles.panelHeader}>
@@ -189,25 +212,6 @@ export function MarketPage() {
               crowdingRatio={marketData.crowding.crowdingRatio}
               description={marketData.crowding.description}
             />
-
-            {/* V2: Time-Bucketed Payouts */}
-            {isV2 && (
-              <PayoutBucketDisplay
-                currentPhase={marketData.timeRemaining.phase}
-                timeRemaining={marketData.timeRemaining}
-                marketDuration={24}
-                userEntryBucket="EARLY"
-              />
-            )}
-
-            {/* V3: Conviction Weight Display */}
-            {isV3 && (
-              <ConvictionWeightDisplay
-                phase={marketData.timeRemaining.phase}
-                percentRemaining={marketData.timeRemaining.percentRemaining}
-                userStake={buyAmount}
-              />
-            )}
 
             {/* Quick Links */}
             <div className={styles.panel}>
